@@ -10,14 +10,13 @@ export default {
 };
 </script>
 <style>
-.monster {
+.mushroom {
   background-image: url(../img/fly_agaric.jpg);
   z-index: 6;
   background-repeat: no-repeat;
   background-size: cover;
   width: 125px;
   height: 125px;
-  margin-top: 250px;
-  margin-right: 50px;
+  margin: 8px 0 500px 110px;
 }
 </style>

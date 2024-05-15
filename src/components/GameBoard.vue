@@ -1,10 +1,16 @@
 <template>
   <div class="board">
     <div class="basket"></div>
+    <MushroomBlock />
+    <MushroomBlock class="mushroom1" />
   </div>
 </template>
 <script>
+import MushroomBlock from './MushroomBlock.vue';
 export default {
+  components: {
+    MushroomBlock,
+  },
   data() {
     return {};
   },
@@ -27,5 +33,8 @@ export default {
   width: 250px;
   height: 250px;
   margin: 2000px auto 0;
+}
+.mushroom1 {
+  margin: -298px 0 500px 610px;
 }
 </style>
