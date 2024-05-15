@@ -1,7 +1,16 @@
 <template>
-  <div class="board"></div>
+  <div class="board">
+    <div class="basket"></div>
+  </div>
 </template>
-<script setup></script>
+<script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {},
+};
+</script>
 <style>
 .board {
   margin: 100px auto;
@@ -9,5 +18,14 @@
   width: 2400px;
   height: 2400px;
   background-color: rgb(29, 56, 26);
+}
+.basket {
+  background-image: url(../img/basket.jpg);
+  z-index: 5;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 250px;
+  height: 250px;
+  margin: 2000px auto 0;
 }
 </style>
