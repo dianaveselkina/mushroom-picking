@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 
 const item1 = {
+  name: '1',
   id: 1,
 };
 const item2 = {
@@ -16,6 +17,9 @@ const item4 = {
 const item5 = {
   id: 5,
 };
+const x = [100, 300, 810, -128, 500];
+const y = [600, 800, 530, 1023, 1100];
+const z = [0.7, 0.9, 0.6, 0.8, 0.9];
 let containerOne = ref([item1, item2, item3, item4, item5]);
 let containerTwo = ref([]);
 
@@ -40,8 +44,13 @@ const handleDrop = (event, targetContainer) => {
     <div class="container-one">
       <div
         class="item"
-        v-for="item in containerOne"
-        :key="item.id"
+        v-for="(item, index) in containerOne"
+        :style="{
+          left: x[index] + 'px',
+          top: y[index] + 'px',
+          scale: z[index],
+        }"
+        :key="index"
         draggable="true"
         v-on:dragstart="handleDragStart($event, item)"
       ></div>
@@ -53,9 +62,12 @@ const handleDrop = (event, targetContainer) => {
       v-on:drop="handleDrop($event, containerTwo)"
     >
       <div
-        class="item1"
-        v-for="item in containerTwo"
-        :key="item.id"
+        class="item"
+        v-for="(item, index) in containerTwo"
+        :style="{
+          scale: z[index],
+        }"
+        :key="index"
         draggable="true"
         v-on:dragstart="handleDragStart($event, item)"
       ></div>
@@ -70,6 +82,7 @@ const handleDrop = (event, targetContainer) => {
   width: 1100px;
 }
 .container-one {
+  position: relative;
   background-image: url(/public/img/forest.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -81,10 +94,10 @@ const handleDrop = (event, targetContainer) => {
 .container-two {
   z-index: 2;
   position: absolute;
-  bottom: 545px;
-  left: 443px;
-  width: 230px;
-  height: 130px;
+  bottom: 379px;
+  left: 862px;
+  width: 189px;
+  height: 95px;
 }
 .basket {
   background-image: url(/public/img/basket.png);
@@ -92,30 +105,32 @@ const handleDrop = (event, targetContainer) => {
   background-size: cover;
   z-index: 1;
   position: absolute;
-  bottom: 400px;
-  left: 400px;
-  width: 314px;
-  height: 200px;
+  bottom: 295px;
+  left: 850px;
+  width: 209px;
+  height: 134px;
 }
 .item {
-  position: absolute;
-  top: 200px;
-  right: 200px;
+  position: relative;
   display: inline-block;
   background-image: url(/public/img/mushroom.png);
   background-repeat: no-repeat;
   background-size: cover;
   width: 63px;
   height: 73px;
-
   cursor: pointer;
 }
-.item1 {
+/* .item1 {
   display: inline-block;
   background-image: url(/public/img/mushroom.png);
   background-repeat: no-repeat;
   background-size: cover;
   width: 63px;
   height: 73px;
+} */
+.position1 {
+  position: absolute;
+  top: 300px;
+  right: 800px;
 }
 </style>
