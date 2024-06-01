@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 
 const item1 = {
-  name: '1',
   id: 1,
 };
 const item2 = {
@@ -19,7 +18,11 @@ const item5 = {
 };
 const x = [100, 300, 810, -128, 500];
 const y = [600, 800, 530, 1023, 1100];
-const z = [0.7, 0.9, 0.6, 0.8, 0.9];
+const z = [0.7, 0.9, 0.7, 0.8, 0.9];
+const r = [3, 4, 5, 6, 7];
+const d = [34, 1, -41, 46, 26];
+const f = [-37, 13, 42, -46, 49];
+const g = [1, 1, 1, -44, -42];
 let containerOne = ref([item1, item2, item3, item4, item5]);
 let containerTwo = ref([]);
 
@@ -41,16 +44,20 @@ const handleDrop = (event, targetContainer) => {
 
 <template>
   <div class="drag-drop-container">
+    <div class="mushroom mushroom1"></div>
+    <div class="mushroom mushroom2"></div>
+    <div class="mushroom mushroom3"></div>
+    <div class="mushroom mushroom4"></div>
     <div class="container-one">
       <div
         class="item"
-        v-for="(item, index) in containerOne"
+        v-for="(item, id) in containerOne"
         :style="{
-          left: x[index] + 'px',
-          top: y[index] + 'px',
-          scale: z[index],
+          left: x[id] + 'px',
+          top: y[id] + 'px',
+          scale: z[id],
         }"
-        :key="index"
+        :key="id"
         draggable="true"
         v-on:dragstart="handleDragStart($event, item)"
       ></div>
@@ -63,11 +70,15 @@ const handleDrop = (event, targetContainer) => {
     >
       <div
         class="item"
-        v-for="(item, index) in containerTwo"
+        v-for="(item, id) in containerTwo"
         :style="{
-          scale: z[index],
+          scale: z[id],
+          zIndex: r[id],
+          left: d[id] + 'px',
+          rotate: f[id] + 'deg',
+          top: g[id] + 'px',
         }"
-        :key="index"
+        :key="id"
         draggable="true"
         v-on:dragstart="handleDragStart($event, item)"
       ></div>
@@ -120,17 +131,33 @@ const handleDrop = (event, targetContainer) => {
   height: 73px;
   cursor: pointer;
 }
-/* .item1 {
-  display: inline-block;
-  background-image: url(/public/img/mushroom.png);
+.mushroom {
+  position: absolute;
+  background-image: url(/public/img/fly-agaric.png);
+  z-index: 5;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 63px;
-  height: 73px;
-} */
-.position1 {
-  position: absolute;
-  top: 300px;
-  right: 800px;
+  width: 52px;
+  height: 65px;
+}
+.mushroom1 {
+  bottom: 65px;
+  left: 300px;
+}
+.mushroom2 {
+  bottom: 200px;
+  left: 984px;
+}
+.mushroom3 {
+  top: 461px;
+  left: 812px;
+  width: 37px;
+  height: 45px;
+}
+.mushroom4 {
+  top: 506px;
+  left: 67px;
+  width: 37px;
+  height: 45px;
 }
 </style>
