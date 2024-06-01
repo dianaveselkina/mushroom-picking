@@ -40,11 +40,15 @@ const handleDrop = (event, targetContainer) => {
   }
   targetContainer.push(itemData);
 };
+const add = () => {
+  console.log('122');
+};
 </script>
 
 <template>
   <div class="drag-drop-container">
-    <div class="mushroom mushroom1"></div>
+    <div class="ambulance"></div>
+    <div @mousedown="add" class="mushroom mushroom1"></div>
     <div class="mushroom mushroom2"></div>
     <div class="mushroom mushroom3"></div>
     <div class="mushroom mushroom4"></div>
@@ -89,6 +93,7 @@ const handleDrop = (event, targetContainer) => {
 
 <style scoped>
 .drag-drop-container {
+  overflow: hidden;
   position: relative;
   width: 1100px;
 }
@@ -159,5 +164,16 @@ const handleDrop = (event, targetContainer) => {
   left: 67px;
   width: 37px;
   height: 45px;
+}
+.ambulance {
+  position: absolute;
+  background-image: url(/public/img/ambulance.jpg);
+  z-index: 5;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 173px;
+  height: 120px;
+  bottom: 455px;
+  right: -200px;
 }
 </style>
