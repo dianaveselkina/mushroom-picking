@@ -40,18 +40,20 @@ const handleDrop = (event, targetContainer) => {
   }
   targetContainer.push(itemData);
 };
+const animated = ref(false);
 const add = () => {
-  console.log('122');
+  animated.value = !animated.value;
 };
 </script>
 
 <template>
+  <h2>собери грибы в корзину</h2>
   <div class="drag-drop-container">
-    <div class="ambulance"></div>
+    <div :class="animated ? '' : 'active'" class="ambulance"></div>
     <div @mousedown="add" class="mushroom mushroom1"></div>
-    <div class="mushroom mushroom2"></div>
-    <div class="mushroom mushroom3"></div>
-    <div class="mushroom mushroom4"></div>
+    <div @mousedown="add" class="mushroom mushroom2"></div>
+    <div @mousedown="add" class="mushroom mushroom3"></div>
+    <div @mousedown="add" class="mushroom mushroom4"></div>
     <div class="container-one">
       <div
         class="item"
@@ -92,18 +94,24 @@ const add = () => {
 </template>
 
 <style scoped>
-.drag-drop-container {
-  overflow: hidden;
-  position: relative;
-  width: 1100px;
+h2 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 24px;
+  margin-top: 18px;
 }
-.container-one {
-  position: relative;
+.drag-drop-container {
   background-image: url(/public/img/forest.png);
   background-repeat: no-repeat;
   background-size: cover;
+  border-radius: 24px;
+  overflow: hidden;
   position: relative;
-  width: 1100px;
+  width: 1200px;
+}
+.container-one {
+  position: relative;
+  width: 1200px;
   height: 1200px;
   padding: 10px;
 }
@@ -154,14 +162,14 @@ const add = () => {
   left: 984px;
 }
 .mushroom3 {
-  top: 461px;
-  left: 812px;
+  top: 576px;
+  left: 1020px;
   width: 37px;
   height: 45px;
 }
 .mushroom4 {
   top: 506px;
-  left: 67px;
+  left: 286px;
   width: 37px;
   height: 45px;
 }
@@ -173,7 +181,12 @@ const add = () => {
   background-size: cover;
   width: 173px;
   height: 120px;
-  bottom: 455px;
-  right: -200px;
+  bottom: 490px;
+  right: -680px;
+  transform: translateX(-1200px);
+  transition: all 1s;
+}
+.ambulance.active {
+  transform: translateX(0px);
 }
 </style>
