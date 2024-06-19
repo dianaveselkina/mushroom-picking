@@ -44,13 +44,30 @@ const animated = ref(false);
 const add = () => {
   animated.value = !animated.value;
 };
+const isVisible = ref(false);
+
+const toggleVisibility = () => {
+  setTimeout(() => {
+    isVisible.value = true;
+  }, '1500');
+};
+
+// const toggleVisibility = () => {
+//   setTimeout(() => {
+//     isVisible.value = true;
+//   }, '1500');
+// };
 </script>
 
 <template>
   <h2>собери грибы в корзину</h2>
   <div class="drag-drop-container">
+    <div class="game-over" v-show="isVisible"></div>
     <div :class="animated ? '' : 'active'" class="ambulance"></div>
-    <div @mousedown="add" class="mushroom mushroom1"></div>
+    <div
+      @mousedown="add(), toggleVisibility()"
+      class="mushroom mushroom1"
+    ></div>
     <div @mousedown="add" class="mushroom mushroom2"></div>
     <div @mousedown="add" class="mushroom mushroom3"></div>
     <div @mousedown="add" class="mushroom mushroom4"></div>
@@ -134,6 +151,25 @@ h2 {
   width: 209px;
   height: 134px;
 }
+.game-over {
+  background-image: url(/public/img/game-over.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 8;
+  position: absolute;
+  bottom: 295px;
+  left: 300px;
+  width: 600px;
+  height: 900px;
+}
+.monster-enter-active {
+  transition: all 1s ease-out;
+}
+
+.monster-enter-to {
+  transform: scale(8);
+  opacity: 1;
+}
 .item {
   position: relative;
   display: inline-block;
@@ -146,7 +182,7 @@ h2 {
 }
 .mushroom {
   position: absolute;
-  background-image: url(/public/img/fly-agaric.png);
+
   z-index: 5;
   background-repeat: no-repeat;
   background-size: cover;
@@ -154,10 +190,13 @@ h2 {
   height: 65px;
 }
 .mushroom1 {
+  background-image: url(/public/img/fly-agaric.png);
   bottom: 65px;
   left: 300px;
 }
 .mushroom2 {
+  background-image: url(/public/img/fly-agaric.png);
+  bottom: 65px;
   bottom: 200px;
   left: 984px;
 }
@@ -175,7 +214,7 @@ h2 {
 }
 .ambulance {
   position: absolute;
-  background-image: url(/public/img/ambulance.jpg);
+  background-image: url(/public/img/ambulance.png);
   z-index: 5;
   background-repeat: no-repeat;
   background-size: cover;
