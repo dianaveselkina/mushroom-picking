@@ -3,26 +3,55 @@ import { ref } from 'vue';
 
 const item1 = {
   id: 1,
+  x: 100,
+  y: 600,
+  z: 0.7,
+  r: 3,
+  d: 50,
+  f: 358,
+  g: 17,
 };
 const item2 = {
   id: 2,
+  x: 300,
+  y: 800,
+  z: 0.9,
+  r: 4,
+  d: 1,
+  f: 13,
+  g: 15,
 };
 const item3 = {
   id: 3,
+  x: 860,
+  y: 580,
+  z: 0.7,
+  r: 5,
+  d: 30,
+  f: 42,
+  g: 30,
 };
 const item4 = {
   id: 4,
+  x: 128,
+  y: 1023,
+  z: 0.8,
+  r: 6,
+  d: 75,
+  f: 11,
+  g: 34,
 };
 const item5 = {
   id: 5,
+  x: 500,
+  y: 1100,
+  z: 0.9,
+  r: 7,
+  d: 123,
+  f: 49,
+  g: 35,
 };
-const x = [100, 300, 810, -128, 500];
-const y = [600, 800, 530, 1023, 1100];
-const z = [0.7, 0.9, 0.7, 0.8, 0.9];
-const r = [3, 4, 5, 6, 7];
-const d = [34, 1, -41, 46, 26];
-const f = [-37, 13, 42, -46, 49];
-const g = [1, 1, 1, -44, -42];
+
 let containerOne = ref([item1, item2, item3, item4, item5]);
 let containerTwo = ref([]);
 
@@ -32,10 +61,8 @@ const handleDragStart = (event, itemData) => {
 
 const handleDrop = (event, targetContainer) => {
   const itemData = JSON.parse(event.dataTransfer.getData('application/json'));
-
-  if (targetContainer === containerOne.value) {
-    containerTwo.value = containerTwo.value.filter((i) => i.id !== itemData.id);
-  } else if (targetContainer === containerTwo.value) {
+  console.log(targetContainer === containerTwo.value);
+  if (targetContainer === containerTwo.value) {
     containerOne.value = containerOne.value.filter((i) => i.id !== itemData.id);
   }
   targetContainer.push(itemData);
@@ -48,7 +75,6 @@ const refreshPage = () => {
   location.reload();
 };
 const modalOpen = ref(false);
-
 const toggleVisibility = () => {
   setTimeout(() => {
     modalOpen.value = true;
@@ -57,7 +83,6 @@ const toggleVisibility = () => {
 </script>
 
 <template>
-  `
   <teleport to="body">
     <div v-if="modalOpen" class="modal">
       <img class="game-over" src="/img/game-over.png" />
@@ -70,7 +95,6 @@ const toggleVisibility = () => {
       </button>
     </div>
   </teleport>
-  `
   <h2>собери грибы в корзину</h2>
   <div class="drag-drop-container">
     <div :class="animated ? '' : 'active'" class="ambulance"></div>
@@ -93,13 +117,13 @@ const toggleVisibility = () => {
     <div class="container-one">
       <div
         class="item"
-        v-for="(item, id) in containerOne"
+        v-for="item in containerOne"
         :style="{
-          left: x[id] + 'px',
-          top: y[id] + 'px',
-          scale: z[id],
+          left: item.x + 'px',
+          top: item.y + 'px',
+          scale: item.z,
         }"
-        :key="id"
+        :key="item.id"
         draggable="true"
         v-on:dragstart="handleDragStart($event, item)"
       ></div>
@@ -112,15 +136,15 @@ const toggleVisibility = () => {
     >
       <div
         class="item"
-        v-for="(item, id) in containerTwo"
+        v-for="item in containerTwo"
         :style="{
-          scale: z[id],
-          zIndex: r[id],
-          left: d[id] + 'px',
-          rotate: f[id] + 'deg',
-          top: g[id] + 'px',
+          scale: item.z,
+          zIndex: item.r,
+          left: item.d + 'px',
+          rotate: item.f + 'deg',
+          top: item.g + 'px',
         }"
-        :key="id"
+        :key="item.id"
         draggable="true"
         v-on:dragstart="handleDragStart($event, item)"
       ></div>
@@ -174,18 +198,10 @@ h2 {
   background-repeat: no-repeat;
   background-size: cover;
   width: 700px;
-  height: 1200px;
-}
-.monster-enter-active {
-  transition: all 1s ease-out;
-}
-
-.monster-enter-to {
-  transform: scale(8);
-  opacity: 1;
+  height: 1100px;
 }
 .item {
-  position: relative;
+  position: absolute;
   display: inline-block;
   background-image: url(/public/img/mushroom.png);
   background-repeat: no-repeat;
@@ -201,6 +217,7 @@ h2 {
   background-size: cover;
   width: 52px;
   height: 65px;
+  cursor: pointer;
 }
 .mushroom1 {
   background-image: url(/public/img/toadstool.png);
@@ -256,6 +273,7 @@ h2 {
   align-items: center;
 }
 .btn {
+  cursor: pointer;
   padding: 20px;
   font-size: 24px;
   border-radius: 16px;
