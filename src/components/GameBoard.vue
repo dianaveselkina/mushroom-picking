@@ -44,7 +44,9 @@ const animated = ref(false);
 const add = () => {
   animated.value = !animated.value;
 };
-
+const refreshPage = () => {
+  location.reload();
+};
 const modalOpen = ref(false);
 
 const toggleVisibility = () => {
@@ -59,7 +61,11 @@ const toggleVisibility = () => {
   <teleport to="body">
     <div v-if="modalOpen" class="modal">
       <img class="game-over" src="/img/game-over.png" />
-      <button class="btn" type="button" @click="modalOpen = false">
+      <button
+        class="btn"
+        type="button"
+        @click="(modalOpen = false), refreshPage()"
+      >
         Попробовать еще раз
       </button>
     </div>
@@ -72,9 +78,18 @@ const toggleVisibility = () => {
       @mousedown="add(), toggleVisibility()"
       class="mushroom mushroom1"
     ></div>
-    <div @mousedown="add, (modalOpen = true)" class="mushroom mushroom2"></div>
-    <div @mousedown="add" class="mushroom mushroom3"></div>
-    <div @mousedown="add" class="mushroom mushroom4"></div>
+    <div
+      @mousedown="add(), toggleVisibility()"
+      class="mushroom mushroom2"
+    ></div>
+    <div
+      @mousedown="add(), toggleVisibility()"
+      class="mushroom mushroom3"
+    ></div>
+    <div
+      @mousedown="add(), toggleVisibility()"
+      class="mushroom mushroom4"
+    ></div>
     <div class="container-one">
       <div
         class="item"
@@ -181,7 +196,6 @@ h2 {
 }
 .mushroom {
   position: absolute;
-
   z-index: 5;
   background-repeat: no-repeat;
   background-size: cover;
@@ -189,23 +203,25 @@ h2 {
   height: 65px;
 }
 .mushroom1 {
-  background-image: url(/public/img/fly-agaric.png);
+  background-image: url(/public/img/toadstool.png);
   bottom: 65px;
   left: 300px;
 }
 .mushroom2 {
-  background-image: url(/public/img/fly-agaric.png);
+  background-image: url(/public/img/toadstool1.png);
   bottom: 65px;
   bottom: 200px;
   left: 984px;
 }
 .mushroom3 {
+  background-image: url(/public/img/fly-agaric.png);
   top: 576px;
   left: 1020px;
   width: 37px;
   height: 45px;
 }
 .mushroom4 {
+  background-image: url(/public/img/fly-agaric.png);
   top: 506px;
   left: 286px;
   width: 37px;
@@ -242,5 +258,6 @@ h2 {
 .btn {
   padding: 20px;
   font-size: 24px;
+  border-radius: 16px;
 }
 </style>
