@@ -44,31 +44,35 @@ const animated = ref(false);
 const add = () => {
   animated.value = !animated.value;
 };
-const isVisible = ref(false);
+
+const modalOpen = ref(false);
 
 const toggleVisibility = () => {
   setTimeout(() => {
-    isVisible.value = true;
+    modalOpen.value = true;
   }, '1500');
 };
-
-// const toggleVisibility = () => {
-//   setTimeout(() => {
-//     isVisible.value = true;
-//   }, '1500');
-// };
 </script>
 
 <template>
+  `
+  <teleport to="body">
+    <div v-if="modalOpen" class="modal">
+      <img class="game-over" src="/img/game-over.png" />
+      <button class="btn" type="button" @click="modalOpen = false">
+        Попробовать еще раз
+      </button>
+    </div>
+  </teleport>
+  `
   <h2>собери грибы в корзину</h2>
   <div class="drag-drop-container">
-    <div class="game-over" v-show="isVisible"></div>
     <div :class="animated ? '' : 'active'" class="ambulance"></div>
     <div
       @mousedown="add(), toggleVisibility()"
       class="mushroom mushroom1"
     ></div>
-    <div @mousedown="add" class="mushroom mushroom2"></div>
+    <div @mousedown="add, (modalOpen = true)" class="mushroom mushroom2"></div>
     <div @mousedown="add" class="mushroom mushroom3"></div>
     <div @mousedown="add" class="mushroom mushroom4"></div>
     <div class="container-one">
@@ -152,15 +156,10 @@ h2 {
   height: 134px;
 }
 .game-over {
-  background-image: url(/public/img/game-over.png);
   background-repeat: no-repeat;
   background-size: cover;
-  z-index: 8;
-  position: absolute;
-  bottom: 295px;
-  left: 300px;
-  width: 600px;
-  height: 900px;
+  width: 700px;
+  height: 1200px;
 }
 .monster-enter-active {
   transition: all 1s ease-out;
@@ -227,5 +226,21 @@ h2 {
 }
 .ambulance.active {
   transform: translateX(0px);
+}
+.modal {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btn {
+  padding: 20px;
+  font-size: 24px;
 }
 </style>
